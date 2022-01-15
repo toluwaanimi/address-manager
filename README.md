@@ -1,1 +1,4 @@
-# ms-deposit-address
+# Deposit Address Service
+
+GRPC
+
