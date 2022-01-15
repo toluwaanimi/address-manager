@@ -1,2 +1,16 @@
-syntax ="proto3";
+syntax = "proto3";
+package address;
+option go_package = ".;address";
 
+service AddressService{
+  rpc GenerateDepositAddress(GenerateDepositAddressRequest) returns (GenerateDepositAddressResponse){}
+}
+
+message GenerateDepositAddressRequest{
+  string businessId = 1;
+  string currency = 2;
+}
+
+message GenerateDepositAddressResponse{
+  string address = 1;
+}
