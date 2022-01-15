@@ -10,12 +10,16 @@ import (
 )
 
 type Secrets struct {
-	DatabaseURL   string `json:"DATABASE_URL"`
-	Port          string `json:"PORT"`
-	Environment   Environment
-	RedisURL      string `json:"REDIS_URL"`
-	RedisUsername string `json:"REDIS_USERNAME"`
-	RedisPassword string `json:"REDIS_PASSWORD"`
+	DatabaseURL            string `json:"DATABASE_URL"`
+	Port                   string `json:"PORT"`
+	Environment            Environment
+	RedisURL               string `json:"REDIS_URL"`
+	RedisUsername          string `json:"REDIS_USERNAME"`
+	RedisPassword          string `json:"REDIS_PASSWORD"`
+	ThresholdURL           string `json:"THRESHOLD_URL"`
+	BTCWalletDepositID     string `json:"BTC_DEPOSIT_WALLET_SANDBOX_WALLET_ID"`
+	BTCWalletDepositCode   string `json:"BTC_DEPOSIT_WALLET_SANDBOX_WALLET_TOKEN"`
+	BTCWalletDepositSecret string `json:"BTC_DEPOSIT_WALLET_SANDBOX_WALLET_SECRET"`
 }
 
 var ss Secrets
@@ -24,7 +28,6 @@ const ServiceName = "ms-address"
 
 func init() {
 	importPath := fmt.Sprintf("%s/config", ServiceName)
-	fmt.Printf(importPath)
 	p, err := build.Default.Import(importPath, "", build.FindOnly)
 	if err == nil {
 		env := filepath.Join(p.Dir, "../.env")
@@ -38,6 +41,10 @@ func init() {
 	ss.RedisURL = os.Getenv("REDIS_URL")
 	ss.RedisUsername = os.Getenv("REDIS_USERNAME")
 	ss.RedisPassword = os.Getenv("REDIS_PASSWORD")
+	ss.ThresholdURL = os.Getenv("THRESHOLD_URL")
+	ss.BTCWalletDepositID = os.Getenv("BTC_DEPOSIT_WALLET_SANDBOX_WALLET_ID")
+	ss.BTCWalletDepositCode = os.Getenv("BTC_DEPOSIT_WALLET_SANDBOX_WALLET_TOKEN")
+	ss.BTCWalletDepositSecret = os.Getenv("BTC_DEPOSIT_WALLET_SANDBOX_WALLET_SECRET")
 
 	ss.Environment = Environment(os.Getenv("ENV"))
 	if err := ss.Environment.IsValid(); err != nil {
