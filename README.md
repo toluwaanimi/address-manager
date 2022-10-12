@@ -1,4 +1,4 @@
-# Deposit Address Service
+# Deposit Address Manager
 
 GRPC
 
